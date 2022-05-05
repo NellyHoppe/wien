@@ -51,10 +51,11 @@ let miniMap = new L.Control.MiniMap(
     }
 ).addTo(map)
 
+// Sehenswürdigkeiten
 async function loadSights(url) {
     let response = await fetch(url);
     let geojson = await response.json();
-    //console.log(geojson);
+    // console.log(geojson);
 
     let overlay = L.featureGroup().addTo(map);
     layerControl.addOverlay(overlay, "Sehenswürdigkeiten");
