@@ -56,6 +56,9 @@ async function loadSights(url) {
     let geojson = await response.json();
     console.log(geojson);
 
-    L.geoJson(geojson).addTo(map);
+    let overlay = L.featureGroup().addTo(map);
+    layerControl.addOverlay(overlay, "Sehenswürdigkeiten");
+
+    L.geoJson(geojson).addTo(overlay);
 }
 loadSights("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json")
