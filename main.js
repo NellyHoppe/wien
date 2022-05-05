@@ -32,11 +32,11 @@ let layerControl = L.control.layers({
 
 layerControl.expand();
 
-let sightLayer = L.featureGroup().addTo(map);
+/*let sightLayer = L.featureGroup().addTo(map);
 
 layerControl.addOverlay(sightLayer, "Sehenswürdigkeiten");
 
-let mrk = L.marker([stephansdom.lat, stephansdom.lng]).addTo(sightLayer)
+let mrk = L.marker([stephansdom.lat, stephansdom.lng]).addTo(sightLayer)*/
 
 // Maßstab hinzufügen
 L.control.scale({
@@ -46,7 +46,14 @@ L.control.scale({
 L.control.fullscreen().addTo(map);
 
 let miniMap = new L.Control.MiniMap(
-    L.tileLayer.provider("BasemapAT") {
+    L.tileLayer.provider("BasemapAT"), {
         toggleDisplay: true
     }
 ).addTo(map)
+
+async function loadSights(url) {
+    let response = await fetch(url);
+    let geojson = await response.json();
+    console.log(geojson);
+}
+loadSights("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json")
