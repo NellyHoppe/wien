@@ -144,7 +144,7 @@ async function loadHotels(url) {
     let geojson = await response.json();
     // console.log(geojson);
 
-    let overlay = L.featureGroup();
+    let overlay = L.featureGroup().addTo(map);
     layerControl.addOverlay(overlay, "Hotels und Unterkünfte");
 
     L.geoJson(geojson, {
@@ -153,7 +153,7 @@ async function loadHotels(url) {
             // console.log(geoJsonPoint.properties.BETRIEBSART_TXT);
             let popup = `
                 <strong/>${geoJsonPoint.properties.BETRIEB}</strong><br>
-                <a href="${geoJsonPoint.properties.WEBLINK1}">Weblink</a>
+                <a href="${geoJsonPoint.properties.WEBLINK1}"  target="_blank">Weblink</a>
             `;
             return L.marker(latlng, {
                 icon: L.icon({
