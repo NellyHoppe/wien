@@ -116,7 +116,7 @@ loadStops("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&vers
 async function loadLines(url) {
     let response = await fetch(url);
     let geojson = await response.json();
-    // console.log(geojson);
+    //console.log(geojson);
 
     let overlay = L.featureGroup();
     layerControl.addOverlay(overlay, "Liniennetz Vienna Sightseeing");
@@ -147,6 +147,22 @@ async function loadHotels(url) {
     let overlay = L.featureGroup();
     layerControl.addOverlay(overlay, "Hotels und Unterkünfte");
 
-    L.geoJson(geojson).addTo(overlay)
+    L.geoJson(geojson, {
+        pointToLayer: function(geoJsonPoint, latlng) {
+            // L.marker(latlng).addTo(map)
+            console.log(geoJsonPoint.properties.BETRIEBSART_TXT);
+            let popup = `
+                <strong/>${geoJsonPoint.properties.LINE_NAME}</strong><br>
+                Station ${geoJsonPoint.properties.STAT_NAME}
+            `;
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: `icons/busstop_${geoJsonPoint.properties.LINE_ID}.png`,
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -37]
+                })
+            }).bindPopup(popup);
+        }
+    }).addTo(overlay);
 }
-// loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
+loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
