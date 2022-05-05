@@ -63,3 +63,16 @@ async function loadSights(url) {
     L.geoJson(geojson).addTo(overlay);
 }
 loadSights("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json")
+
+// Haltestellen Sightseeing
+async function loadStops(url) {
+    let response = await fetch(url);
+    let geojson = await response.json();
+    // console.log(geojson);
+
+    let overlay = L.featureGroup().addTo(map);
+    layerControl.addOverlay(overlay, "Sight Seeing Haltestellen");
+
+    L.geoJson(geojson).addTo(overlay);
+}
+loadStops("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKHTSVSLOGD&srsName=EPSG:4326&outputFormat=json")
