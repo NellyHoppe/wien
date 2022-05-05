@@ -150,14 +150,14 @@ async function loadHotels(url) {
     L.geoJson(geojson, {
         pointToLayer: function(geoJsonPoint, latlng) {
             // L.marker(latlng).addTo(map)
-            console.log(geoJsonPoint.properties.BETRIEBSART_TXT);
+            // console.log(geoJsonPoint.properties.BETRIEBSART_TXT);
             let popup = `
-                <strong/>${geoJsonPoint.properties.LINE_NAME}</strong><br>
-                Station ${geoJsonPoint.properties.STAT_NAME}
+                <strong/>${geoJsonPoint.properties.BETRIEB}</strong><br>
+                <a href="${geoJsonPoint.properties.WEBLINK1}">Weblink</a>
             `;
             return L.marker(latlng, {
                 icon: L.icon({
-                    iconUrl: `icons/busstop_${geoJsonPoint.properties.LINE_ID}.png`,
+                    iconUrl: `icons/${geoJsonPoint.properties.BETRIEBSART_TXT}.png`,
                     iconAnchor: [16, 37],
                     popupAnchor: [0, -37]
                 })
