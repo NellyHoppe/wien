@@ -158,12 +158,13 @@ async function loadHotels(url) {
                 Kategorie: ${geoJsonPoint.properties.KATEGORIE_TXT}<br>
                 Adresse: ${geoJsonPoint.properties.ADRESSE}<br>
                 Telefonnummer: ${geoJsonPoint.properties.KONTAKT_TEL}<br>
+                <a href="mailto:${geoJsonPoint.properties.KONTAKT_EMAIL}">${geoJsonPoint.properties.KONTAKT_EMAIL}</a><br>
                 <a href="${geoJsonPoint.properties.WEBLINK1}"  target="_blank">Weblink</a>
             `;
             if (geoJsonPoint.properties.BETRIEBSART == "H"){
                 return L.marker(latlng, {
                     icon: L.icon({
-                        iconUrl: `icons/Hotel.png`,
+                        iconUrl: `icons/hotel_0star.png`,
                         iconAnchor: [16, 37],
                         popupAnchor: [0, -37]
                     })
@@ -171,7 +172,15 @@ async function loadHotels(url) {
             } else if (geoJsonPoint.properties.BETRIEBSART == "P"){
                 return L.marker(latlng, {
                     icon: L.icon({
-                        iconUrl: `icons/Pension.png`,
+                        iconUrl: `icons/lodging_0star.png`,
+                        iconAnchor: [16, 37],
+                        popupAnchor: [0, -37]
+                    })
+                }).bindPopup(popup);
+            } else {
+                return L.marker(latlng, {
+                    icon: L.icon({
+                        iconUrl: `icons/apartment-2.png`,
                         iconAnchor: [16, 37],
                         popupAnchor: [0, -37]
                     })
