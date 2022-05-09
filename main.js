@@ -153,15 +153,30 @@ async function loadHotels(url) {
             // console.log(geoJsonPoint.properties.BETRIEBSART_TXT);
             let popup = `
                 <strong/>${geoJsonPoint.properties.BETRIEB}</strong><br>
+                <hr>
+                Betriebsart: ${geoJsonPoint.properties.BETRIEBSART_TXT}<br>
+                Kategorie: ${geoJsonPoint.properties.KATEGORIE_TXT}<br>
+                Adresse: ${geoJsonPoint.properties.ADRESSE}<br>
+                Telefonnummer: ${geoJsonPoint.properties.KONTAKT_TEL}<br>
                 <a href="${geoJsonPoint.properties.WEBLINK1}"  target="_blank">Weblink</a>
             `;
-            return L.marker(latlng, {
-                icon: L.icon({
-                    iconUrl: `icons/${geoJsonPoint.properties.BETRIEBSART_TXT}.png`,
-                    iconAnchor: [16, 37],
-                    popupAnchor: [0, -37]
-                })
-            }).bindPopup(popup);
+            if (geoJsonPoint.properties.BETRIEBSART == "H"){
+                return L.marker(latlng, {
+                    icon: L.icon({
+                        iconUrl: `icons/Hotel.png`,
+                        iconAnchor: [16, 37],
+                        popupAnchor: [0, -37]
+                    })
+                }).bindPopup(popup);
+            } else if (geoJsonPoint.properties.BETRIEBSART == "P"){
+                return L.marker(latlng, {
+                    icon: L.icon({
+                        iconUrl: `icons/Pension.png`,
+                        iconAnchor: [16, 37],
+                        popupAnchor: [0, -37]
+                    })
+                }).bindPopup(popup);
+            }
         }
     }).addTo(overlay);
 }
