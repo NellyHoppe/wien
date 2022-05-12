@@ -135,7 +135,9 @@ async function loadLines(url) {
             };
 
             return {
-                color: `${colors[feature.properties.LINE_NAME]}`
+                color: `${colors[feature.properties.LINE_NAME]}`,
+                weight: 4,
+                dashArray: [10,6]
             }
         }
     }).bindPopup(function (layer) {
