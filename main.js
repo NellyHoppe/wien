@@ -118,7 +118,7 @@ async function loadLines(url) {
     let geojson = await response.json();
     //console.log(geojson);
 
-    let overlay = L.featureGroup();
+    let overlay = L.featureGroup().addTo(map);
     layerControl.addOverlay(overlay, "Liniennetz Vienna Sightseeing");
 
     L.geoJson(geojson).addTo(overlay);
