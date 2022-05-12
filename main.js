@@ -121,7 +121,15 @@ async function loadLines(url) {
     let overlay = L.featureGroup().addTo(map);
     layerControl.addOverlay(overlay, "Liniennetz Vienna Sightseeing");
 
-    L.geoJson(geojson).addTo(overlay);
+    L.geoJson(geojson).bindPopup(function (layer) {
+        return `
+            <h4>${layer.feature.properties.LINE_NAME}</h4>
+            von: ${layer.feature.properties.FROM_NAME}
+            <br>
+            nach: ${layer.feature.properties.TO_NAME}
+        `
+        // return layer.feature.properties.LINE_NAME;
+    }).addTo(overlay);
 }
 loadLines("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKLINIEVSLOGD&srsName=EPSG:4326&outputFormat=json")
 
