@@ -186,7 +186,7 @@ async function loadHotels(url) {
     let geojson = await response.json();
     // console.log(geojson);
 
-    let overlay = L.featureGroup().addTo(map);
+    let overlay = L.markerClusterGroup().addTo(map);
     layerControl.addOverlay(overlay, "Hotels und Unterkünfte");
 
     L.geoJson(geojson, {
