@@ -162,7 +162,15 @@ async function loadZones(url) {
     layerControl.addOverlay(overlay, "Fußgängerzonen");
     // Popup mit Adresse, Zeitraum und Ausnahme
 
-    L.geoJson(geojson).bindPopup(function (layer) {
+    L.geoJson(geojson, {
+        style: function (feature) {
+            return {
+                stroke: false,
+                color: "#F012BE",
+                fillOpacity: 0.1
+            }
+        }
+    }).bindPopup(function (layer) {
         return `
         <h4>Fußgängerzone ${layer.feature.properties.ADRESSE}</h4>
         <p>${layer.feature.properties.ZEITRAUM || ""}</p>
